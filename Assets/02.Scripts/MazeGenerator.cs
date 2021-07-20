@@ -1,18 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
+
+using TMPro;
+
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MazeGenerator : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private const float wallLength = 30;
+
+    [SerializeField]
+    private GameObject horizontalWallPrefab;
+    [SerializeField]
+    private GameObject verticalWallPrefab;
+    [SerializeField]
+    private RectTransform canvas;
+    [SerializeField]
+    private int size;
+
+    private GameObject[,] horizontalWalls;
+    private GameObject[,] verticalWalls;
+
+
+    private void Start()
     {
-        
+        Maze maze = new Maze(size, size);
+        maze.Generate();
+
+        horizontalWalls = new GameObject[size, size - 1];
+        verticalWalls = new GameObject[size - 1, size];
+
+        for(int i = 0; i < size; i++)
+        {
+            CreateObject(horizontalWallPrefab, i * wallLength, 0);
+            CreateObject(horizontalWallPrefab, i * wallLength, size * wallLength);
+            CreateObject(verticalWallPrefab, 0, i * wallLength);
+            CreateObject(verticalWallPrefab, size * wallLength, i * wallLength);
+        }
+
+        for(int i = 0; i < size; i++)
+        {
+            for(int j = 1; j < size; j++)
+            {
+                if(maze.HorizontalWalls[i, j - 1])
+                {
+                    horizontalWalls[i, j - 1] = CreateObject(horizontalWallPrefab, i * wallLength, j * wallLength);
+                }
+
+                if(maze.VerticalWalls[j - 1, i])
+                {
+                    verticalWalls[j - 1, i] = CreateObject(verticalWallPrefab, j * wallLength, i * wallLength);
+                }
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private GameObject CreateObject(GameObject prefab, float x, float y)
     {
-        
+        GameObject createdObject = Instantiate(prefab);
+        RectTransform rectTransform = createdObject.GetComponent<RectTransform>();
+        rectTransform.SetParent(canvas);
+        rectTransform.anchoredPosition = new Vector2(x, y);
+
+        return createdObject;
     }
 }
