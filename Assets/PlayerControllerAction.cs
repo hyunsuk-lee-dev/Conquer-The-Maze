@@ -50,7 +50,7 @@ public partial class @PlayerControllerAction : IInputActionCollection2, IDisposa
                     ""id"": ""14998eec-f7ed-4f22-8828-eee9a9d8c02b"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
-                    ""processors"": ""ScaleVector2(x=15,y=15)"",
+                    ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Look"",
                     ""isComposite"": false,
