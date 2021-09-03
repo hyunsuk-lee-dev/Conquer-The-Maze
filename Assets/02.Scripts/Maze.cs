@@ -160,11 +160,11 @@ public class Maze
         int n = list.Count;
         while(n > 1)
         {
+            int randomIndex = Random.Range(0, n);
+            T randomValue = list[randomIndex];
+            list[randomIndex] = list[n];
+            list[n] = randomValue;
             n--;
-            int k = Random.Range(0, n + 1);
-            T value = list[k];
-            list[k] = list[n];
-            list[n] = value;
         }
     }
 }

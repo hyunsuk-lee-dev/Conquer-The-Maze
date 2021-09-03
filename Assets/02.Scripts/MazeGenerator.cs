@@ -26,7 +26,7 @@ public class MazeGenerator : MonoBehaviour
     private void Start()
     {
         Maze maze = new Maze(size, size);
-        maze.Generate();
+        //maze.Generate();
 
         horizontalWalls = new GameObject[size, size - 1];
         verticalWalls = new GameObject[size - 1, size];
